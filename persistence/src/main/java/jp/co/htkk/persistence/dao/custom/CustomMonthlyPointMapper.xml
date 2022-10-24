@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.htkk.persistence.dao.custom.CustomMonthlyPointMapper">
+
+  <resultMap id="getTotalPointInMonthResultMap"
+             type="jp.co.htkk.dto.monthlypoint.rst.TotalPointInMonthRst">
+    <result column="earn_point" jdbcType="INTEGER" property="earnPoint"/>
+    <result column="point_event" jdbcType="INTEGER" property="pointEvent"/>
+    <result column="used_point" jdbcType="INTEGER" property="usedPoint"/>
+    <result column="revocation_point" jdbcType="INTEGER" property="revocationPoint"/>
+  </resultMap>
+
+  <select id="getTotalPointInMonth"
+          resultMap="getTotalPointInMonthResultMap"
+          parameterType="java.lang.String">
+    SELECT
+      SUM(mp.earn_point) AS earn_point,
+      SUM(mp.point_event) AS point_event,
+      SUM(mp.used_point) AS used_point,
+      SUM(mp.revocation_point) AS revocation_point
+    FROM
+      monthly_point mp
+    WHERE
+      mp.month = #{month,jdbcType=VARCHAR}
+      AND mp.del_flag = '${@jp.co.htkk.framework.enums.EDeleteFlag@NOT_DELETED.code}'
+  </select>
+
+</mapper>

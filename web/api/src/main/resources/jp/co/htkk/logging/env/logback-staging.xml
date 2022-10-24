@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<included>
+
+	<root level="info">
+		<appender-ref ref="FILE" />
+	</root>
+
+	<logger name="org.mybatis">
+		<level value="FILE"/>
+	</logger>
+
+	<!-- Application logs at trace level -->
+	<logger name="jp.co.htkk" level="info" additivity="false">
+		<appender-ref ref="FILE" />
+	</logger>
+
+</included>

@@ -1,0 +1,42 @@
+# CodeBuild for Java buildspec file
+#  1. Add CodeBuild task
+#  2. Add Environments
+#     - AWS_ACCOUNT_ID (e.g. 111111111)
+#     - IMAGE_REPO_NAME (ECR repository name.  e.g. magellan/sample-repo)
+#     - ENVIRONMENT (Build environemnt and image tag.  e.g. dev, stg)
+#     - CONTAINER_NAME (ECS container name)
+#
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  pre_build:
+    commands:
+      - echo "Logging in to Amazon ECR..."
+      - aws --version
+      # Set ECR repository uri (ref: https://ap-northeast-1.console.aws.amazon.com/ecr/repositories/private/811982135134/magellan/helpo2-auth-sys?region=ap-northeast-1)
+      - REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+      # Get commit hash value to image tag (ex: magellan/helpo2-auth-sys:789abc3)
+      - IMAGE_TAG="$(echo ${CODEBUILD_RESOLVED_SOURCE_VERSION} | cut -c 1-7)"
+      # Login to docker with aws account
+      - aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${REPOSITORY_URI}
+  build:
+    commands:
+      - echo "Build started on $(date)"
+      - echo "Building the Docker image..."
+      - docker build -t ${REPOSITORY_URI}:${IMAGE_TAG} .
+      - echo "docker tag ${REPOSITORY_URI}:${IMAGE_TAG} ${REPOSITORY_URI}:latest"
+      - docker tag ${REPOSITORY_URI}:${IMAGE_TAG} ${REPOSITORY_URI}:latest
+      - docker tag ${REPOSITORY_URI}:${IMAGE_TAG} ${REPOSITORY_URI}:${ENVIRONMENT}
+  post_build:
+    commands:
+      - echo "Build completed on $(date)"
+      - echo "Pushing the Docker image..."
+      - docker push ${REPOSITORY_URI}:latest
+      - docker push ${REPOSITORY_URI}:${IMAGE_TAG}
+      - docker push ${REPOSITORY_URI}:${ENVIRONMENT}
+      - printf '[{"name":"%s","imageUri":"%s"}]' ${CONTAINER_NAME} "${REPOSITORY_URI}:${IMAGE_TAG}" > imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json

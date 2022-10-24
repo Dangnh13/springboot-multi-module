@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.htkk.persistence.dao.generator.UserMapper">
+  <resultMap id="BaseResultMap" type="jp.co.htkk.entity.generator.User">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="contract_status" jdbcType="SMALLINT" property="contractStatus" />
+    <result column="contract_term" jdbcType="SMALLINT" property="contractTerm" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="contract_time_start" jdbcType="TIMESTAMP" property="contractTimeStart" />
+    <result column="contract_time_end" jdbcType="TIMESTAMP" property="contractTimeEnd" />
+    <result column="invitation_code" jdbcType="VARCHAR" property="invitationCode" />
+    <result column="group_number" jdbcType="SMALLINT" property="groupNumber" />
+    <result column="created_by" jdbcType="BIGINT" property="createdBy" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_by" jdbcType="BIGINT" property="updatedBy" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="del_flag" jdbcType="SMALLINT" property="delFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, user_name, contract_no, contract_status, contract_term, phone_number, email, 
+    contract_time_start, contract_time_end, invitation_code, group_number, created_by, 
+    created_at, updated_by, updated_at, del_flag
+  </sql>
+  <select id="selectByExample" parameterType="jp.co.htkk.entity.generator.UserCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="jp.co.htkk.entity.generator.UserCriteria">
+    delete from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="jp.co.htkk.entity.generator.User">
+    <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user (user_name, contract_no, contract_status, 
+      contract_term, phone_number, email, 
+      contract_time_start, contract_time_end, 
+      invitation_code, group_number, created_by, 
+      created_at, updated_by, updated_at, 
+      del_flag)
+    values (#{userName,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{contractStatus,jdbcType=SMALLINT}, 
+      #{contractTerm,jdbcType=SMALLINT}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{contractTimeStart,jdbcType=TIMESTAMP}, #{contractTimeEnd,jdbcType=TIMESTAMP}, 
+      #{invitationCode,jdbcType=VARCHAR}, #{groupNumber,jdbcType=SMALLINT}, #{createdBy,jdbcType=BIGINT}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=BIGINT}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{delFlag,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="jp.co.htkk.entity.generator.User">
+    <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="contractNo != null">
+        contract_no,
+      </if>
+      <if test="contractStatus != null">
+        contract_status,
+      </if>
+      <if test="contractTerm != null">
+        contract_term,
+      </if>
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="contractTimeStart != null">
+        contract_time_start,
+      </if>
+      <if test="contractTimeEnd != null">
+        contract_time_end,
+      </if>
+      <if test="invitationCode != null">
+        invitation_code,
+      </if>
+      <if test="groupNumber != null">
+        group_number,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null">
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStatus != null">
+        #{contractStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="contractTerm != null">
+        #{contractTerm,jdbcType=SMALLINT},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTimeStart != null">
+        #{contractTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractTimeEnd != null">
+        #{contractTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invitationCode != null">
+        #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNumber != null">
+        #{groupNumber,jdbcType=SMALLINT},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="jp.co.htkk.entity.generator.UserCriteria" resultType="java.lang.Long">
+    select count(*) from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractNo != null">
+        contract_no = #{record.contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractStatus != null">
+        contract_status = #{record.contractStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.contractTerm != null">
+        contract_term = #{record.contractTerm,jdbcType=SMALLINT},
+      </if>
+      <if test="record.phoneNumber != null">
+        phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractTimeStart != null">
+        contract_time_start = #{record.contractTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.contractTimeEnd != null">
+        contract_time_end = #{record.contractTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.invitationCode != null">
+        invitation_code = #{record.invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupNumber != null">
+        group_number = #{record.groupNumber,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createdBy != null">
+        created_by = #{record.createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null">
+        updated_by = #{record.updatedBy,jdbcType=BIGINT},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.delFlag != null">
+        del_flag = #{record.delFlag,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user
+    set user_id = #{record.userId,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      contract_no = #{record.contractNo,jdbcType=VARCHAR},
+      contract_status = #{record.contractStatus,jdbcType=SMALLINT},
+      contract_term = #{record.contractTerm,jdbcType=SMALLINT},
+      phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      contract_time_start = #{record.contractTimeStart,jdbcType=TIMESTAMP},
+      contract_time_end = #{record.contractTimeEnd,jdbcType=TIMESTAMP},
+      invitation_code = #{record.invitationCode,jdbcType=VARCHAR},
+      group_number = #{record.groupNumber,jdbcType=SMALLINT},
+      created_by = #{record.createdBy,jdbcType=BIGINT},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=BIGINT},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      del_flag = #{record.delFlag,jdbcType=SMALLINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="jp.co.htkk.entity.generator.User">
+    update user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null">
+        contract_no = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStatus != null">
+        contract_status = #{contractStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="contractTerm != null">
+        contract_term = #{contractTerm,jdbcType=SMALLINT},
+      </if>
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTimeStart != null">
+        contract_time_start = #{contractTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractTimeEnd != null">
+        contract_time_end = #{contractTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invitationCode != null">
+        invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNumber != null">
+        group_number = #{groupNumber,jdbcType=SMALLINT},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jp.co.htkk.entity.generator.User">
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      contract_status = #{contractStatus,jdbcType=SMALLINT},
+      contract_term = #{contractTerm,jdbcType=SMALLINT},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      contract_time_start = #{contractTimeStart,jdbcType=TIMESTAMP},
+      contract_time_end = #{contractTimeEnd,jdbcType=TIMESTAMP},
+      invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      group_number = #{groupNumber,jdbcType=SMALLINT},
+      created_by = #{createdBy,jdbcType=BIGINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=BIGINT},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=SMALLINT}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="jp.co.htkk.entity.generator.UserCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectOneByExample" parameterType="jp.co.htkk.entity.generator.UserCriteria" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    limit 1
+  </select>
+  <insert id="batchInsert" keyColumn="user_id" keyProperty="userId" parameterType="map" useGeneratedKeys="true">
+    insert into user
+    (user_name, contract_no, contract_status, contract_term, phone_number, email, contract_time_start, 
+      contract_time_end, invitation_code, group_number, created_by, created_at, updated_by, 
+      updated_at, del_flag)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.userName,jdbcType=VARCHAR}, #{item.contractNo,jdbcType=VARCHAR}, #{item.contractStatus,jdbcType=SMALLINT}, 
+        #{item.contractTerm,jdbcType=SMALLINT}, #{item.phoneNumber,jdbcType=VARCHAR}, #{item.email,jdbcType=VARCHAR}, 
+        #{item.contractTimeStart,jdbcType=TIMESTAMP}, #{item.contractTimeEnd,jdbcType=TIMESTAMP}, 
+        #{item.invitationCode,jdbcType=VARCHAR}, #{item.groupNumber,jdbcType=SMALLINT}, 
+        #{item.createdBy,jdbcType=BIGINT}, #{item.createdAt,jdbcType=TIMESTAMP}, #{item.updatedBy,jdbcType=BIGINT}, 
+        #{item.updatedAt,jdbcType=TIMESTAMP}, #{item.delFlag,jdbcType=SMALLINT})
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" keyColumn="user_id" keyProperty="list.userId" parameterType="map" useGeneratedKeys="true">
+    insert into user (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.escapedColumnName}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'user_name'.toString() == column.value">
+          #{item.userName,jdbcType=VARCHAR}
+        </if>
+        <if test="'contract_no'.toString() == column.value">
+          #{item.contractNo,jdbcType=VARCHAR}
+        </if>
+        <if test="'contract_status'.toString() == column.value">
+          #{item.contractStatus,jdbcType=SMALLINT}
+        </if>
+        <if test="'contract_term'.toString() == column.value">
+          #{item.contractTerm,jdbcType=SMALLINT}
+        </if>
+        <if test="'phone_number'.toString() == column.value">
+          #{item.phoneNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="'email'.toString() == column.value">
+          #{item.email,jdbcType=VARCHAR}
+        </if>
+        <if test="'contract_time_start'.toString() == column.value">
+          #{item.contractTimeStart,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'contract_time_end'.toString() == column.value">
+          #{item.contractTimeEnd,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'invitation_code'.toString() == column.value">
+          #{item.invitationCode,jdbcType=VARCHAR}
+        </if>
+        <if test="'group_number'.toString() == column.value">
+          #{item.groupNumber,jdbcType=SMALLINT}
+        </if>
+        <if test="'created_by'.toString() == column.value">
+          #{item.createdBy,jdbcType=BIGINT}
+        </if>
+        <if test="'created_at'.toString() == column.value">
+          #{item.createdAt,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'updated_by'.toString() == column.value">
+          #{item.updatedBy,jdbcType=BIGINT}
+        </if>
+        <if test="'updated_at'.toString() == column.value">
+          #{item.updatedAt,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'del_flag'.toString() == column.value">
+          #{item.delFlag,jdbcType=SMALLINT}
+        </if>
+      </foreach>
+      )
+    </foreach>
+  </insert>
+  <insert id="upsertSelective" keyColumn="user_id" keyProperty="userId" parameterType="jp.co.htkk.entity.generator.User" useGeneratedKeys="true">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="contractNo != null">
+        contract_no,
+      </if>
+      <if test="contractStatus != null">
+        contract_status,
+      </if>
+      <if test="contractTerm != null">
+        contract_term,
+      </if>
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="contractTimeStart != null">
+        contract_time_start,
+      </if>
+      <if test="contractTimeEnd != null">
+        contract_time_end,
+      </if>
+      <if test="invitationCode != null">
+        invitation_code,
+      </if>
+      <if test="groupNumber != null">
+        group_number,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null">
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStatus != null">
+        #{contractStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="contractTerm != null">
+        #{contractTerm,jdbcType=SMALLINT},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTimeStart != null">
+        #{contractTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractTimeEnd != null">
+        #{contractTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invitationCode != null">
+        #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNumber != null">
+        #{groupNumber,jdbcType=SMALLINT},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=SMALLINT},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null">
+        contract_no = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStatus != null">
+        contract_status = #{contractStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="contractTerm != null">
+        contract_term = #{contractTerm,jdbcType=SMALLINT},
+      </if>
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTimeStart != null">
+        contract_time_start = #{contractTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractTimeEnd != null">
+        contract_time_end = #{contractTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invitationCode != null">
+        invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNumber != null">
+        group_number = #{groupNumber,jdbcType=SMALLINT},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <insert id="upsert" keyColumn="user_id" keyProperty="userId" parameterType="jp.co.htkk.entity.generator.User" useGeneratedKeys="true">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      user_name,
+      contract_no,
+      contract_status,
+      contract_term,
+      phone_number,
+      email,
+      contract_time_start,
+      contract_time_end,
+      invitation_code,
+      group_number,
+      created_by,
+      created_at,
+      updated_by,
+      updated_at,
+      del_flag,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      #{userName,jdbcType=VARCHAR},
+      #{contractNo,jdbcType=VARCHAR},
+      #{contractStatus,jdbcType=SMALLINT},
+      #{contractTerm,jdbcType=SMALLINT},
+      #{phoneNumber,jdbcType=VARCHAR},
+      #{email,jdbcType=VARCHAR},
+      #{contractTimeStart,jdbcType=TIMESTAMP},
+      #{contractTimeEnd,jdbcType=TIMESTAMP},
+      #{invitationCode,jdbcType=VARCHAR},
+      #{groupNumber,jdbcType=SMALLINT},
+      #{createdBy,jdbcType=BIGINT},
+      #{createdAt,jdbcType=TIMESTAMP},
+      #{updatedBy,jdbcType=BIGINT},
+      #{updatedAt,jdbcType=TIMESTAMP},
+      #{delFlag,jdbcType=SMALLINT},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      user_name = #{userName,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      contract_status = #{contractStatus,jdbcType=SMALLINT},
+      contract_term = #{contractTerm,jdbcType=SMALLINT},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      contract_time_start = #{contractTimeStart,jdbcType=TIMESTAMP},
+      contract_time_end = #{contractTimeEnd,jdbcType=TIMESTAMP},
+      invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      group_number = #{groupNumber,jdbcType=SMALLINT},
+      created_by = #{createdBy,jdbcType=BIGINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=BIGINT},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=SMALLINT},
+    </trim>
+  </insert>
+</mapper>

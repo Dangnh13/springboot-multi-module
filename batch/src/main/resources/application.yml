@@ -1,0 +1,43 @@
+spring:
+  #*******************************************************************************
+  #                           Config Data source
+  #******************************************************************************/
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:helpo_step}?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:123456}
+    hikari:
+      # Optimize max connection pool: amount = ((core_count * 2) + effective_spindle_count)
+      maximum-pool-size: 10
+# Config mybatis
+mybatis:
+  check-config-location: true
+  mapper-locations: classpath*:jp/co/htkk/persistence/dao/**/*.xml
+  configuration:
+    default-fetch-size: 100
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    cache-enabled: false
+    lazy-loading-enabled: true
+    multiple-result-sets-enabled: true
+    use-column-label: true
+    use-generated-keys: false
+    auto-mapping-behavior: partial
+    safe-row-bounds-enabled: false
+    local-cache-scope: session
+    jdbc-type-for-null: other
+    lazy-load-trigger-methods: equals,clone,hashCode,toString
+    aggressive-lazy-loading: false
+# Mybatis paging
+pagehelper:
+  auto-dialect: true
+  support-methods-arguments: true
+
+---
+spring:
+  profiles: development, staging, production
+### File Logging settings
+logging:
+  file:
+    path: ${LOG_PATH}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<included>
+
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <logger name="org.mybatis" level="TRACE">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="org.apache.ibatis" level="TRACE">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+
+    <!-- Application logs at trace level -->
+    <logger name="jp.co.htkk" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+</included>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<included>
+
+    <appender name="CONSOLE"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>utf-8</charset>
+            <pattern>${LOG_PATTERN}</pattern>
+            <!--
+            <springProfile name="default">
+                <pattern>${LOG_PATTERN}</pattern>
+            </springProfile>
+            <springProfile name="development">
+                <pattern>${LOG_PATTERN}</pattern>
+            </springProfile>
+            <springProfile name="staging">
+                <pattern>${LOG_PATTERN}</pattern>
+            </springProfile>
+            <springProfile name="production">
+                <pattern>${LOG_PATTERN}</pattern>
+            </springProfile>-->
+        </encoder>
+    </appender>
+
+</included>

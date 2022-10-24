@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.htkk.persistence.dao.custom.CustomDailyPointMapper">
+
+    <resultMap id="getTotalPointLessThanDateSelectedResultMap"
+               type="jp.co.htkk.dto.dailypoint.rst.TotalPointLessThanDateSelectedRst">
+        <result column="earn_point" jdbcType="INTEGER" property="earnPoint"/>
+        <result column="point_event" jdbcType="INTEGER" property="pointEvent"/>
+    </resultMap>
+
+    <select id="getTotalPointLessThanDateSelected"
+            resultMap="getTotalPointLessThanDateSelectedResultMap"
+            parameterType="java.lang.String">
+        SELECT
+            SUM( dp.earn_point ) AS earn_point,
+            SUM( dp.point_event ) AS point_event
+        FROM
+            daily_point dp
+        WHERE
+            dp.sync_date <![CDATA[ < ]]> #{date,jdbcType=VARCHAR}
+            AND dp.del_flag = '${@jp.co.htkk.framework.enums.EDeleteFlag@NOT_DELETED.code}'
+    </select>
+
+</mapper>

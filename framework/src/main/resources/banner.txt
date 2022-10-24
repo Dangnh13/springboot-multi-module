@@ -1,0 +1,10 @@
+o      O o.OOoOoo  o      OooOOo.   .oOOOo.
+O      o  O       O       O     `O .O     o.
+o      O  o       o       o      O O       o
+OoOooOOo  ooOO    o       O     .o o       O
+o      O  O       O       oOooOO'  O       o
+O      o  o       O       o        o       O
+o      o  O       o     . O        `o     O'
+o      O ooOooOoO OOoOooO o'        `OoooO'
+
+Spring Boot${spring-boot.formatted-version}

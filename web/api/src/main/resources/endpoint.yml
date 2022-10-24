@@ -1,0 +1,7 @@
+endpoint:
+  admin:
+    dashboard:
+      monthly: /admin/dashboard/monthly
+      daily: /admin/dashboard/daily
+    user:
+      userSearch: /admin/user/userSearch

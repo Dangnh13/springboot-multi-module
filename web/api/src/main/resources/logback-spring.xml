@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <include resource="jp/co/htkk/logging/core/config.xml"/>
+    <include resource="jp/co/htkk/logging/core/console-appender.xml"/>
+    <include resource="jp/co/htkk/logging/core/file-appender.xml"/>
+
+    <springProfile name="default">
+        <include resource="jp/co/htkk/logging/env/logback-default.xml"/>
+    </springProfile>
+
+    <springProfile name="development">
+        <include resource="jp/co/htkk/logging/env/logback-dev.xml"/>
+    </springProfile>
+
+    <springProfile name="staging">
+        <include resource="jp/co/htkk/logging/env/logback-staging.xml"/>
+    </springProfile>
+
+    <springProfile name="production">
+        <include resource="jp/co/htkk/logging/env/logback-prod.xml"/>
+    </springProfile>
+
+</configuration>

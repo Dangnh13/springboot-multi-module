@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<included>
+
+    <root level="debug">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <!-- Application logs at trace level -->
+    <logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="org.mybatis" level="TRACE">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="org.apache.ibatis" level="TRACE">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+
+    <!-- Application logs at trace level -->
+    <logger name="jp.co.htkk" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+</included>

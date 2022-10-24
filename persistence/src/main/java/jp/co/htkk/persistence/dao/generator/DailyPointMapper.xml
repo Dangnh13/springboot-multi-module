@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.htkk.persistence.dao.generator.DailyPointMapper">
+  <resultMap id="BaseResultMap" type="jp.co.htkk.entity.generator.DailyPoint">
+    <id column="daily_point_id" jdbcType="BIGINT" property="dailyPointId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="step_count" jdbcType="INTEGER" property="stepCount" />
+    <result column="sync_date" jdbcType="VARCHAR" property="syncDate" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="kcal" jdbcType="INTEGER" property="kcal" />
+    <result column="distance" jdbcType="INTEGER" property="distance" />
+    <result column="total_time" jdbcType="BIGINT" property="totalTime" />
+    <result column="earn_point" jdbcType="INTEGER" property="earnPoint" />
+    <result column="step_event" jdbcType="INTEGER" property="stepEvent" />
+    <result column="point_event" jdbcType="SMALLINT" property="pointEvent" />
+    <result column="created_by" jdbcType="BIGINT" property="createdBy" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_by" jdbcType="BIGINT" property="updatedBy" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="del_flag" jdbcType="SMALLINT" property="delFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    daily_point_id, user_id, step_count, sync_date, device_id, kcal, distance, total_time, 
+    earn_point, step_event, point_event, created_by, created_at, updated_by, updated_at, 
+    del_flag
+  </sql>
+  <select id="selectByExample" parameterType="jp.co.htkk.entity.generator.DailyPointCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from daily_point
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from daily_point
+    where daily_point_id = #{dailyPointId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from daily_point
+    where daily_point_id = #{dailyPointId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="jp.co.htkk.entity.generator.DailyPointCriteria">
+    delete from daily_point
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="jp.co.htkk.entity.generator.DailyPoint">
+    <selectKey keyProperty="dailyPointId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into daily_point (user_id, step_count, sync_date, 
+      device_id, kcal, distance, 
+      total_time, earn_point, step_event, 
+      point_event, created_by, created_at, 
+      updated_by, updated_at, del_flag
+      )
+    values (#{userId,jdbcType=BIGINT}, #{stepCount,jdbcType=INTEGER}, #{syncDate,jdbcType=VARCHAR}, 
+      #{deviceId,jdbcType=VARCHAR}, #{kcal,jdbcType=INTEGER}, #{distance,jdbcType=INTEGER}, 
+      #{totalTime,jdbcType=BIGINT}, #{earnPoint,jdbcType=INTEGER}, #{stepEvent,jdbcType=INTEGER}, 
+      #{pointEvent,jdbcType=SMALLINT}, #{createdBy,jdbcType=BIGINT}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=BIGINT}, #{updatedAt,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jp.co.htkk.entity.generator.DailyPoint">
+    <selectKey keyProperty="dailyPointId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into daily_point
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="stepCount != null">
+        step_count,
+      </if>
+      <if test="syncDate != null">
+        sync_date,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="kcal != null">
+        kcal,
+      </if>
+      <if test="distance != null">
+        distance,
+      </if>
+      <if test="totalTime != null">
+        total_time,
+      </if>
+      <if test="earnPoint != null">
+        earn_point,
+      </if>
+      <if test="stepEvent != null">
+        step_event,
+      </if>
+      <if test="pointEvent != null">
+        point_event,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="stepCount != null">
+        #{stepCount,jdbcType=INTEGER},
+      </if>
+      <if test="syncDate != null">
+        #{syncDate,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="kcal != null">
+        #{kcal,jdbcType=INTEGER},
+      </if>
+      <if test="distance != null">
+        #{distance,jdbcType=INTEGER},
+      </if>
+      <if test="totalTime != null">
+        #{totalTime,jdbcType=BIGINT},
+      </if>
+      <if test="earnPoint != null">
+        #{earnPoint,jdbcType=INTEGER},
+      </if>
+      <if test="stepEvent != null">
+        #{stepEvent,jdbcType=INTEGER},
+      </if>
+      <if test="pointEvent != null">
+        #{pointEvent,jdbcType=SMALLINT},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="jp.co.htkk.entity.generator.DailyPointCriteria" resultType="java.lang.Long">
+    select count(*) from daily_point
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update daily_point
+    <set>
+      <if test="record.dailyPointId != null">
+        daily_point_id = #{record.dailyPointId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.stepCount != null">
+        step_count = #{record.stepCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.syncDate != null">
+        sync_date = #{record.syncDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kcal != null">
+        kcal = #{record.kcal,jdbcType=INTEGER},
+      </if>
+      <if test="record.distance != null">
+        distance = #{record.distance,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalTime != null">
+        total_time = #{record.totalTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.earnPoint != null">
+        earn_point = #{record.earnPoint,jdbcType=INTEGER},
+      </if>
+      <if test="record.stepEvent != null">
+        step_event = #{record.stepEvent,jdbcType=INTEGER},
+      </if>
+      <if test="record.pointEvent != null">
+        point_event = #{record.pointEvent,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createdBy != null">
+        created_by = #{record.createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null">
+        updated_by = #{record.updatedBy,jdbcType=BIGINT},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.delFlag != null">
+        del_flag = #{record.delFlag,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update daily_point
+    set daily_point_id = #{record.dailyPointId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      step_count = #{record.stepCount,jdbcType=INTEGER},
+      sync_date = #{record.syncDate,jdbcType=VARCHAR},
+      device_id = #{record.deviceId,jdbcType=VARCHAR},
+      kcal = #{record.kcal,jdbcType=INTEGER},
+      distance = #{record.distance,jdbcType=INTEGER},
+      total_time = #{record.totalTime,jdbcType=BIGINT},
+      earn_point = #{record.earnPoint,jdbcType=INTEGER},
+      step_event = #{record.stepEvent,jdbcType=INTEGER},
+      point_event = #{record.pointEvent,jdbcType=SMALLINT},
+      created_by = #{record.createdBy,jdbcType=BIGINT},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=BIGINT},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      del_flag = #{record.delFlag,jdbcType=SMALLINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="jp.co.htkk.entity.generator.DailyPoint">
+    update daily_point
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="stepCount != null">
+        step_count = #{stepCount,jdbcType=INTEGER},
+      </if>
+      <if test="syncDate != null">
+        sync_date = #{syncDate,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="kcal != null">
+        kcal = #{kcal,jdbcType=INTEGER},
+      </if>
+      <if test="distance != null">
+        distance = #{distance,jdbcType=INTEGER},
+      </if>
+      <if test="totalTime != null">
+        total_time = #{totalTime,jdbcType=BIGINT},
+      </if>
+      <if test="earnPoint != null">
+        earn_point = #{earnPoint,jdbcType=INTEGER},
+      </if>
+      <if test="stepEvent != null">
+        step_event = #{stepEvent,jdbcType=INTEGER},
+      </if>
+      <if test="pointEvent != null">
+        point_event = #{pointEvent,jdbcType=SMALLINT},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where daily_point_id = #{dailyPointId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jp.co.htkk.entity.generator.DailyPoint">
+    update daily_point
+    set user_id = #{userId,jdbcType=BIGINT},
+      step_count = #{stepCount,jdbcType=INTEGER},
+      sync_date = #{syncDate,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      kcal = #{kcal,jdbcType=INTEGER},
+      distance = #{distance,jdbcType=INTEGER},
+      total_time = #{totalTime,jdbcType=BIGINT},
+      earn_point = #{earnPoint,jdbcType=INTEGER},
+      step_event = #{stepEvent,jdbcType=INTEGER},
+      point_event = #{pointEvent,jdbcType=SMALLINT},
+      created_by = #{createdBy,jdbcType=BIGINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=BIGINT},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=SMALLINT}
+    where daily_point_id = #{dailyPointId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="jp.co.htkk.entity.generator.DailyPointCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from daily_point
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectOneByExample" parameterType="jp.co.htkk.entity.generator.DailyPointCriteria" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from daily_point
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    limit 1
+  </select>
+  <insert id="batchInsert" keyColumn="daily_point_id" keyProperty="dailyPointId" parameterType="map" useGeneratedKeys="true">
+    insert into daily_point
+    (user_id, step_count, sync_date, device_id, kcal, distance, total_time, earn_point, 
+      step_event, point_event, created_by, created_at, updated_by, updated_at, del_flag
+      )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.userId,jdbcType=BIGINT}, #{item.stepCount,jdbcType=INTEGER}, #{item.syncDate,jdbcType=VARCHAR}, 
+        #{item.deviceId,jdbcType=VARCHAR}, #{item.kcal,jdbcType=INTEGER}, #{item.distance,jdbcType=INTEGER}, 
+        #{item.totalTime,jdbcType=BIGINT}, #{item.earnPoint,jdbcType=INTEGER}, #{item.stepEvent,jdbcType=INTEGER}, 
+        #{item.pointEvent,jdbcType=SMALLINT}, #{item.createdBy,jdbcType=BIGINT}, #{item.createdAt,jdbcType=TIMESTAMP}, 
+        #{item.updatedBy,jdbcType=BIGINT}, #{item.updatedAt,jdbcType=TIMESTAMP}, #{item.delFlag,jdbcType=SMALLINT}
+        )
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" keyColumn="daily_point_id" keyProperty="list.dailyPointId" parameterType="map" useGeneratedKeys="true">
+    insert into daily_point (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.escapedColumnName}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'user_id'.toString() == column.value">
+          #{item.userId,jdbcType=BIGINT}
+        </if>
+        <if test="'step_count'.toString() == column.value">
+          #{item.stepCount,jdbcType=INTEGER}
+        </if>
+        <if test="'sync_date'.toString() == column.value">
+          #{item.syncDate,jdbcType=VARCHAR}
+        </if>
+        <if test="'device_id'.toString() == column.value">
+          #{item.deviceId,jdbcType=VARCHAR}
+        </if>
+        <if test="'kcal'.toString() == column.value">
+          #{item.kcal,jdbcType=INTEGER}
+        </if>
+        <if test="'distance'.toString() == column.value">
+          #{item.distance,jdbcType=INTEGER}
+        </if>
+        <if test="'total_time'.toString() == column.value">
+          #{item.totalTime,jdbcType=BIGINT}
+        </if>
+        <if test="'earn_point'.toString() == column.value">
+          #{item.earnPoint,jdbcType=INTEGER}
+        </if>
+        <if test="'step_event'.toString() == column.value">
+          #{item.stepEvent,jdbcType=INTEGER}
+        </if>
+        <if test="'point_event'.toString() == column.value">
+          #{item.pointEvent,jdbcType=SMALLINT}
+        </if>
+        <if test="'created_by'.toString() == column.value">
+          #{item.createdBy,jdbcType=BIGINT}
+        </if>
+        <if test="'created_at'.toString() == column.value">
+          #{item.createdAt,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'updated_by'.toString() == column.value">
+          #{item.updatedBy,jdbcType=BIGINT}
+        </if>
+        <if test="'updated_at'.toString() == column.value">
+          #{item.updatedAt,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'del_flag'.toString() == column.value">
+          #{item.delFlag,jdbcType=SMALLINT}
+        </if>
+      </foreach>
+      )
+    </foreach>
+  </insert>
+  <insert id="upsertSelective" keyColumn="daily_point_id" keyProperty="dailyPointId" parameterType="jp.co.htkk.entity.generator.DailyPoint" useGeneratedKeys="true">
+    insert into daily_point
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dailyPointId != null">
+        daily_point_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="stepCount != null">
+        step_count,
+      </if>
+      <if test="syncDate != null">
+        sync_date,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="kcal != null">
+        kcal,
+      </if>
+      <if test="distance != null">
+        distance,
+      </if>
+      <if test="totalTime != null">
+        total_time,
+      </if>
+      <if test="earnPoint != null">
+        earn_point,
+      </if>
+      <if test="stepEvent != null">
+        step_event,
+      </if>
+      <if test="pointEvent != null">
+        point_event,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dailyPointId != null">
+        #{dailyPointId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="stepCount != null">
+        #{stepCount,jdbcType=INTEGER},
+      </if>
+      <if test="syncDate != null">
+        #{syncDate,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="kcal != null">
+        #{kcal,jdbcType=INTEGER},
+      </if>
+      <if test="distance != null">
+        #{distance,jdbcType=INTEGER},
+      </if>
+      <if test="totalTime != null">
+        #{totalTime,jdbcType=BIGINT},
+      </if>
+      <if test="earnPoint != null">
+        #{earnPoint,jdbcType=INTEGER},
+      </if>
+      <if test="stepEvent != null">
+        #{stepEvent,jdbcType=INTEGER},
+      </if>
+      <if test="pointEvent != null">
+        #{pointEvent,jdbcType=SMALLINT},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=SMALLINT},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="dailyPointId != null">
+        daily_point_id = #{dailyPointId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="stepCount != null">
+        step_count = #{stepCount,jdbcType=INTEGER},
+      </if>
+      <if test="syncDate != null">
+        sync_date = #{syncDate,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="kcal != null">
+        kcal = #{kcal,jdbcType=INTEGER},
+      </if>
+      <if test="distance != null">
+        distance = #{distance,jdbcType=INTEGER},
+      </if>
+      <if test="totalTime != null">
+        total_time = #{totalTime,jdbcType=BIGINT},
+      </if>
+      <if test="earnPoint != null">
+        earn_point = #{earnPoint,jdbcType=INTEGER},
+      </if>
+      <if test="stepEvent != null">
+        step_event = #{stepEvent,jdbcType=INTEGER},
+      </if>
+      <if test="pointEvent != null">
+        point_event = #{pointEvent,jdbcType=SMALLINT},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <insert id="upsert" keyColumn="daily_point_id" keyProperty="dailyPointId" parameterType="jp.co.htkk.entity.generator.DailyPoint" useGeneratedKeys="true">
+    insert into daily_point
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dailyPointId != null">
+        daily_point_id,
+      </if>
+      user_id,
+      step_count,
+      sync_date,
+      device_id,
+      kcal,
+      distance,
+      total_time,
+      earn_point,
+      step_event,
+      point_event,
+      created_by,
+      created_at,
+      updated_by,
+      updated_at,
+      del_flag,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dailyPointId != null">
+        #{dailyPointId,jdbcType=BIGINT},
+      </if>
+      #{userId,jdbcType=BIGINT},
+      #{stepCount,jdbcType=INTEGER},
+      #{syncDate,jdbcType=VARCHAR},
+      #{deviceId,jdbcType=VARCHAR},
+      #{kcal,jdbcType=INTEGER},
+      #{distance,jdbcType=INTEGER},
+      #{totalTime,jdbcType=BIGINT},
+      #{earnPoint,jdbcType=INTEGER},
+      #{stepEvent,jdbcType=INTEGER},
+      #{pointEvent,jdbcType=SMALLINT},
+      #{createdBy,jdbcType=BIGINT},
+      #{createdAt,jdbcType=TIMESTAMP},
+      #{updatedBy,jdbcType=BIGINT},
+      #{updatedAt,jdbcType=TIMESTAMP},
+      #{delFlag,jdbcType=SMALLINT},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="dailyPointId != null">
+        daily_point_id = #{dailyPointId,jdbcType=BIGINT},
+      </if>
+      user_id = #{userId,jdbcType=BIGINT},
+      step_count = #{stepCount,jdbcType=INTEGER},
+      sync_date = #{syncDate,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      kcal = #{kcal,jdbcType=INTEGER},
+      distance = #{distance,jdbcType=INTEGER},
+      total_time = #{totalTime,jdbcType=BIGINT},
+      earn_point = #{earnPoint,jdbcType=INTEGER},
+      step_event = #{stepEvent,jdbcType=INTEGER},
+      point_event = #{pointEvent,jdbcType=SMALLINT},
+      created_by = #{createdBy,jdbcType=BIGINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=BIGINT},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=SMALLINT},
+    </trim>
+  </insert>
+</mapper>

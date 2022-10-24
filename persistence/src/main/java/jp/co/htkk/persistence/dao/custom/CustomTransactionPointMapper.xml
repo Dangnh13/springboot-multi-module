@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.htkk.persistence.dao.custom.CustomTransactionPointMapper">
+
+    <resultMap id="getTotalPointLessThanDateAndStatusAndTypeResultMap"
+               type="jp.co.htkk.dto.transactionpoint.rst.TotalPointByDateAndStatusAndTypeRst">
+        <result column="amount_point" jdbcType="INTEGER" property="amountPoint"/>
+    </resultMap>
+
+    <select id="getTotalPointLessThanDateAndStatusAndType"
+            resultMap="getTotalPointLessThanDateAndStatusAndTypeResultMap"
+            parameterType="jp.co.htkk.dto.transactionpoint.prm.TotalPointByDateAndStatusAndTypePrm">
+        SELECT
+            SUM( tp.amount_point ) amount_point
+        FROM
+            transaction_point tp
+        WHERE
+            tp.transaction_type = #{transactionType,jdbcType=SMALLINT}
+            AND tp.transaction_status = #{transactionStatus,jdbcType=SMALLINT}
+            AND DATE(tp.transaction_time) <![CDATA[ < ]]> #{transactionDate,jdbcType=VARCHAR}
+            AND tp.del_flag = '${@jp.co.htkk.framework.enums.EDeleteFlag@NOT_DELETED.code}'
+    </select>
+
+</mapper>
