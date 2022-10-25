@@ -1,4 +1,4 @@
-# point-management-sys TECHNICAL
+# TECHNICAL
 
 ##### Technology stack in project:
 
@@ -34,7 +34,7 @@
 │   └── src
 │       └── main
 │           ├── java
-│           │   └── jp.co.htkk
+│           │   └── xx.xx.xx
 │           │       └── framework
 │           │           └── constant
 │           │           └── converter
@@ -51,7 +51,7 @@
 │   └── src
 │       └── main
 │           ├── java
-│           │   └── jp.co.htkk
+│           │   └── xx.xx.xx
 │           │       └── entity
 │           │           ├── generator
 ├── dto
@@ -59,7 +59,7 @@
 │   └── src
 │       └── main
 │           ├── java
-│           │   └── jp.co.htkk
+│           │   └── xx.xx.xx
 │           │       └── dto
 │           │           ├── function
 │           │                   ├── request
@@ -72,7 +72,7 @@
 │   └── src
 │       └── main
 │           ├── java
-│           │   └── jp.co.htkk
+│           │   └── xx.xx.xx
 │           │       └── persistence.dao
 │           │           ├── generator
 │           │                   ├── MonthlyPointMapper.xml
@@ -87,7 +87,7 @@
 │            └── src
 │                └── main
 │                    ├── java
-│                    │   └── jp.co.htkk
+│                    │   └── xx.xx.xx
 │                    │       └── business
 │                    │           ├── service
 │                    │                     ├── MonthlyPointService.java
@@ -96,14 +96,14 @@
 │            └── src
 │                └── main
 │                    ├── java
-│                    │   └── jp.co.htkk
+│                    │   └── xx.xx.xx
 │                    │       └── business
 │                    │           ├── service
 │                    │                     ├── impl
 │                    │                          ├── MonthlyPointService.java
 │                └── test
 │                    ├── java
-│                    │   └── jp.co.htkk
+│                    │   └── xx.xx.xx
 │                    │       └── business
 │                    │           ├── service
 │                    │                     ├── impl
@@ -115,7 +115,7 @@
 │        └── src
 │            └── main
 │                ├── java
-│                │   └── jp.co.htkk
+│                │   └── xx.xx.xx
 │                │       └── api
 │                │           ├── aspect
 │                │           └── config
@@ -133,7 +133,7 @@
 │                        └── logback-[env].xml
 │            └── test
 │                ├── java
-│                │   └── jp.co.htkk
+│                │   └── xx.xx.xx
 │                │       └── api
 │                │           └── controller
 │                │              └── DashBoardControllerTest.java
@@ -143,7 +143,7 @@
 │   └── src
 │       └── main
 │           ├── java
-│           │   └── jp.co.htkk
+│           │   └── xx.xx.xx
 │           │       └── batch
 │           │           ├── event
 │           │           └── job
@@ -152,7 +152,7 @@
 │           └── resources
 │               ├── application.yml
 │               ├── logback-spring.xml
-│               └── jp/co/httk/logging/env
+│               └── jxx/xx/xx/logging/env
 │                   └── logback-[env].xml
 ├── mybatis-generator
 │   ├── pom.xml
@@ -165,7 +165,7 @@
 │   └── src
 │       └── main
 │           └── resources
-│               ├── co/jp/htkk/migration
+│               ├── xx/xx/xx/migration
 │                   ├── environments
 │                       ├── [env].properties
 │                   ├── scripts
