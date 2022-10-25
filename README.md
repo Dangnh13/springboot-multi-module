@@ -44,7 +44,7 @@
 │               ├── application.properties
 │               ├── validationMessages_xx.properties
 │               ├── messages.properties
-│               └── jp/co/httk/logging/core
+│               └── xx/xx/xx/core
 │                   └── config.xml
 ├── entity
 │   ├── pom.xml
@@ -129,7 +129,7 @@
 │                    ├── api-messages_[xx].properties
 │                    ├── endpoint.yml
 │                    └── logback-spring.xml
-│                    └── jp/co/httk/logging/env
+│                    └── xx/xx/xx/logging/env
 │                        └── logback-[env].xml
 │            └── test
 │                ├── java
