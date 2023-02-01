@@ -10,7 +10,8 @@ services:
     ports:
       - 3306:3306
     container_name: mysqlDb
-  backend:
+  api:
+    image: api:1.0.0
     build:
       context: ./
       dockerfile: Dockerfile
@@ -18,7 +19,7 @@ services:
       - 9000:9000
     depends_on:
       - mysqlDb
-    container_name: backend
+    container_name: api
 
 volumes:
   data:
