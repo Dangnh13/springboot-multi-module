@@ -20,7 +20,7 @@ spring:
   #******************************************************************************/
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:192.168.0.105}:${MYSQL_PORT:3306}/${MYSQL_DB:helpo_step}?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://${MYSQL_HOST:mysqlDb}:${MYSQL_PORT:3306}/${MYSQL_DB:helpo_step}?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull
     username: ${MYSQL_USERNAME:root}
     password: ${MYSQL_PASSWORD:123456}
     hikari:

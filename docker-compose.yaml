@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  mysqlDb:
+    image: mysql
+    volumes:
+      - data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: helpo_step
+    ports:
+      - 3306:3306
+    container_name: mysqlDb
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 9000:9000
+    depends_on:
+      - mysqlDb
+    container_name: backend
+
+volumes:
+  data:
